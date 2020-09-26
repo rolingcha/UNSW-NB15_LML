@@ -196,13 +196,7 @@ def get_ohe_from_dsport(raw_df=None):
     dsport_df.loc[:, '_dsport_'] = 0
     
     dsport_df.loc[:, ('_dsport_')] = dsport_df.apply(dsport_normalizer, axis=1)
-# =============================================================================
-#     dsport_df.loc[:, ('_dsport_')] = dsport_df.apply(lambda row: 
-#                                             int(row['dsport']) if row['dsport'].str.isnumeric() 
-#                                             else int(row['dsport'], 16),
-#                                             axis=1)
-#     
-# =============================================================================
+
     # RFC1340: The Registered Ports are in the range 1024-65535
     dsport_df.loc[:, ('dsport')] = 'gt_65535'
     dsport_df.loc[dsport_df._dsport_ < 65536, 'dsport'] = '1024_65535'
@@ -347,18 +341,6 @@ def get_ohe_from_state(raw_df=None):
 # Returns: dataframe 
 #   
 def get_wrangled_column(raw_df=None, column_name='__no_name__'):
-# =============================================================================
-#     if 'id.resp_p' == column_name:
-#         return get_ohe_from_id_resp_p(raw_df)
-#     
-#     elif 'service' == column_name:
-#         return get_ohe_from_service(raw_df)
-#     
-#     elif 'history' == column_name:
-#         return get_ohe_from_history(raw_df)
-#     el
-#     
-# =============================================================================
     if 'scalars' == column_name:
         return get_wrangled_scalars(raw_df)
     elif 'dsport' == column_name:
